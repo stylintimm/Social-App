@@ -38,6 +38,7 @@
 		F7CBD7231DEB94F300CDF691 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		F7CBD7241DEB94F300CDF691 /* FancyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyTextField.swift; sourceTree = "<group>"; };
 		F7CBD7251DEB94F300CDF691 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
+		F7CBD72A1DEBAC7F00CDF691 /* Social App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Social App.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +91,7 @@
 		F7CBD7071DEB8E3500CDF691 /* Social App */ = {
 			isa = PBXGroup;
 			children = (
+				F7CBD72A1DEBAC7F00CDF691 /* Social App.entitlements */,
 				F7CBD71F1DEB94BF00CDF691 /* Utils */,
 				F7CBD71E1DEB94B800CDF691 /* Views */,
 				F7CBD71D1DEB94AB00CDF691 /* Models */,
@@ -175,6 +177,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = M6SQFZFBGP;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -391,6 +398,7 @@
 			baseConfigurationReference = C138C07EE428CADDCA18150F /* Pods-Social App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Social App/Social App.entitlements";
 				DEVELOPMENT_TEAM = M6SQFZFBGP;
 				INFOPLIST_FILE = "Social App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -405,6 +413,7 @@
 			baseConfigurationReference = 11B34264B1D1959134AF1A17 /* Pods-Social App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Social App/Social App.entitlements";
 				DEVELOPMENT_TEAM = M6SQFZFBGP;
 				INFOPLIST_FILE = "Social App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
