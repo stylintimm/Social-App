@@ -10,6 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
+import SwiftKeychainWrapper
 
 class SignInVC : UIViewController {
 
@@ -19,7 +20,20 @@ class SignInVC : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // Cool way to dismiss keyboard.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignInVC.dismissKeyboard))
+        
+        view.addGestureRecognizer(tap)
+        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+            if let _ = KeychainWrapper.standard.string(forKey: KEY_UID){
+            performSegue(withIdentifier: "goToFeed", sender: nil)
+            print("In viewDidAppear should have segued. KEY_UID is: \(KEY_UID)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,26 +64,81 @@ class SignInVC : UIViewController {
                 print("Unable to authenticate with Firebase - \(error)")
             } else {
                 print("Successfully authenticated with Firebase")
+                if let user = user {
+                    self.completeSignIn(id: user.uid)
+                    
+                }
+                
             }
         })
     }
     @IBAction func signInButtonTapped(_ sender: FancyButton) {
+      self.dismissKeyboard()
         if let email = emailField.text, let pwd = passwordField.text {
             FIRAuth.auth()?.signIn(withEmail: email, password: pwd, completion: { (user, error) in
                 if error == nil {
                     print("Email User Authenticated with Firebase")
+                    if let user = user {
+                        self.completeSignIn(id: user.uid)
+                    }
                 } else {
                     FIRAuth.auth()?.createUser(withEmail: email, password: pwd, completion: { (user, error) in
                         if error != nil {
-                            print("Unable to authenticate with FireBase using email")
+                            print("Unable to authenticate with FireBase using email \(error)")
+                            
+                            self.handleLoginErrors(errorCode: (error?._code)!)
+                            
                         } else {
                             print("Succesfully authenticated with Firebase.")
+                            if let user = user {
+                                self.completeSignIn(id: user.uid)
+                            }
                         }
                     })
                 }
             })
         }
         
+    }
+
+    func completeSignIn(id: String){
+        KeychainWrapper.standard.set(id, forKey: KEY_UID)
+        
+        performSegue(withIdentifier: "goToFeed", sender: nil)
+    }
+    
+    func handleLoginErrors(errorCode: Int){
+        switch errorCode {
+        case FIRAuthErrorCode.errorCodeWrongPassword.rawValue:
+            print("Wrong Password")
+            alertOnLoginError(title: "Log In Error! \(errorCode)", message: "You may have entered the wrong password. You can try again.", actions: ["Try Again"])
+        case FIRAuthErrorCode.errorCodeEmailAlreadyInUse.rawValue:
+            print("Email in use already.")
+            alertOnLoginError(title: "Log In Error! \(errorCode)", message: "This email is already in use, please try your password again.", actions: ["Try Again"])
+        case FIRAuthErrorCode.errorCodeWeakPassword.rawValue:
+            alertOnLoginError(title: "Log In Error! \(errorCode)", message: "Passwords must be at least 7 characters in length.", actions: ["Try Again"])
+            print("Weak password!")
+        default:
+            alertOnLoginError(title: "Log In Error! \(errorCode)", message: "General log in problem.", actions: ["Send Help Request"])
+            print("Error Logging In.")
+        }
+    }
+    
+    func alertOnLoginError(title: String, message: String, actions: [String]){
+        let logInAlert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        for item in actions {
+            logInAlert.addAction(UIAlertAction(title: item, style: .default, handler: nil))
+        }
+        
+        logInAlert.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        logInAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(logInAlert, animated: true)
+        
+    }
+    
+    func dismissKeyboard(){
+        view.endEditing(true)
     }
 
 }

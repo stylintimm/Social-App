@@ -72,7 +72,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nAh-Pc-XvY">
-                                <rect key="frame" x="56" y="342" width="263" height="137"/>
+                                <rect key="frame" x="56" y="329" width="263" height="137"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CSO-H3-Gr8" customClass="FancyTextField" customModule="Social_App" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="263" height="30"/>
@@ -116,7 +116,7 @@
                         <constraints>
                             <constraint firstItem="0sW-ky-3Aq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="G6N-ln-DJ8"/>
                             <constraint firstItem="Yz1-Ke-64Y" firstAttribute="centerX" secondItem="QjJ-b8-uDc" secondAttribute="centerX" id="GgE-8t-ZMT"/>
-                            <constraint firstItem="nAh-Pc-XvY" firstAttribute="top" secondItem="Yz1-Ke-64Y" secondAttribute="bottom" constant="43" id="HqD-Ln-bVY"/>
+                            <constraint firstItem="nAh-Pc-XvY" firstAttribute="top" secondItem="Yz1-Ke-64Y" secondAttribute="bottom" constant="30" id="HqD-Ln-bVY"/>
                             <constraint firstItem="QjJ-b8-uDc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="KBp-oR-9ve"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nAh-Pc-XvY" secondAttribute="trailing" constant="40" id="SEm-aT-yh0"/>
                             <constraint firstItem="nAh-Pc-XvY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="TXw-cN-d5e"/>
@@ -134,11 +134,45 @@
                     <connections>
                         <outlet property="emailField" destination="CSO-H3-Gr8" id="1zj-fz-WAe"/>
                         <outlet property="passwordField" destination="QdN-je-iOY" id="Edi-W4-czx"/>
+                        <segue destination="Yzo-wF-5aP" kind="show" identifier="goToFeed" id="kC3-WD-1ux"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+        <!--FeedVC-->
+        <scene sceneID="2w8-rr-cfj">
+            <objects>
+                <viewController id="Yzo-wF-5aP" customClass="FeedVC" customModule="Social_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uqZ-uH-bV4"/>
+                        <viewControllerLayoutGuide type="bottom" id="YOs-MH-jaD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PBL-B1-ZWE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GT8-4L-huW">
+                                <rect key="frame" x="157" y="318" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Out">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="signOutButtonPressed:" destination="Yzo-wF-5aP" eventType="touchUpInside" id="Zth-t7-bqd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.65490196079999996" blue="0.71372549019999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToSignInSegue" id="IOj-qS-CxD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6uX-b1-xsq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1127" y="132"/>
         </scene>
     </scenes>
     <resources>

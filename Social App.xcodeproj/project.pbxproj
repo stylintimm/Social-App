@@ -19,6 +19,7 @@
 		F7CBD7271DEB94F300CDF691 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CBD7231DEB94F300CDF691 /* RoundButton.swift */; };
 		F7CBD7281DEB94F300CDF691 /* FancyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CBD7241DEB94F300CDF691 /* FancyTextField.swift */; };
 		F7CBD7291DEB94F300CDF691 /* FancyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CBD7251DEB94F300CDF691 /* FancyButton.swift */; };
+		F7CF10FD1DED99930097E69E /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CF10FC1DED99930097E69E /* FeedVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		F7CBD7241DEB94F300CDF691 /* FancyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyTextField.swift; sourceTree = "<group>"; };
 		F7CBD7251DEB94F300CDF691 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
 		F7CBD72A1DEBAC7F00CDF691 /* Social App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Social App.entitlements"; sourceTree = "<group>"; };
+		F7CF10FC1DED99930097E69E /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				F7CBD70A1DEB8E3500CDF691 /* SignInVC.swift */,
+				F7CF10FC1DED99930097E69E /* FeedVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				F7CBD7271DEB94F300CDF691 /* RoundButton.swift in Sources */,
 				F7CBD7091DEB8E3500CDF691 /* AppDelegate.swift in Sources */,
 				F7CBD7291DEB94F300CDF691 /* FancyButton.swift in Sources */,
+				F7CF10FD1DED99930097E69E /* FeedVC.swift in Sources */,
 				F7CBD7281DEB94F300CDF691 /* FancyTextField.swift in Sources */,
 				F7CBD7261DEB94F300CDF691 /* FancyView.swift in Sources */,
 				F7CBD7211DEB94CC00CDF691 /* Constants.swift in Sources */,
