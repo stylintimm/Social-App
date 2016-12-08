@@ -10,11 +10,16 @@ import UIKit
 import Firebase
 import SwiftKeychainWrapper
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var imageAdd: CircleView!
     
     var posts = [Post]()
+    var imagePicker: UIImagePickerController!
+    
+    // creates global var for cached images
+    static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +27,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
         
         //Gets info from firebase
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
@@ -58,8 +67,17 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let post = posts[indexPath.row]
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell{
-            cell.configureCell(post: post)
-            return cell
+            
+            //   var img: UIImage!
+            
+            if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
+                cell.configureCell(post: post, img: img)
+                return cell
+            } else {
+                cell.configureCell(post: post)
+                return cell
+            }
+
         } else {
             return PostCell()
         }
@@ -71,6 +89,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func addImageTapped(_ sender: UITapGestureRecognizer) {
+        
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    
     @IBAction func signOutButtonPressed(_ sender: UIButton) {
         let KeyChainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
         print("ID removed from Keychain \(KeyChainResult)")
@@ -78,6 +103,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         performSegue(withIdentifier: "goToSignInSegue", sender: nil)
     }
 
+    // Sets the picture from camera roll
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
+            imageAdd.image = image
+        } else {
+            print("TIMM: Invalid Image: Wasn't selected.")
+        }
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
